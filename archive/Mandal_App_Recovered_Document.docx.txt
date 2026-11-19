@@ -1,0 +1,1000 @@
+Recovered Mandal App Prototype
+Regenerated from the recovered “mandal app python.docx” source artifact
+Source file
+	mandal app python.docx
+	Recovered artifact
+	Voice-reactive HTML/CSS/JavaScript prototype
+	This package
+	Clean document + extracted standalone HTML
+	
+
+Recovery note
+This document reconstructs the content embedded inside the recovered source file. The original artifact contained a full browser prototype inside a Word document, followed by architecture notes and design logic for the Frequency Field Mandala / Mandal App concept.
+Recovered prototype summary
+* Single-file browser prototype built with HTML, CSS, and JavaScript.
+* Voice-reactive canvas interface with live ripple feedback during microphone input.
+* Transforms completed sessions into geometric mandala output.
+* Includes account toggle and ring-growth logic for an accumulating visual archive.
+Recovered project notes
+Jump
+
+
+
+
+Tree Ring Growth Architecture
+
+
+
+
+
+
+Core Concept Update
+
+
+FROM: Text-based state prompts → Static mandala generation
+TO: Voice-reactive interface → Live ripple feedback → Tree ring biographical document
+
+
+Your updated vision creates a geometric autobiography where each voice session becomes a permanent ring in an ever-expanding mandala, similar to how trees record their life history in growth rings.
+
+
+
+
+
+
+Voice Interaction Flow
+
+
+1. Voice Input Screen
+* Large gradient button (purple→pink) at bottom center
+* Hold to record, release to process
+* ChatGPT-style pulsing orb aesthetic
+* Haptic feedback (vibration on mobile) synced with:
+* Voice amplitude (louder = stronger pulses)
+* Pitch changes (frequency variations)
+
+
+2. Live Ripple Visualization
+* **Central Pulsing Sphere:** Expands/contracts with voice amplitude
+* **Ripple Rings:** Emanate outward at voice peaks
+* Ring size = amplitude intensity
+* Ring speed = pitch variation
+* Ring opacity = sustained tone duration
+* **Circular Frequency Bars:** Real-time spectral analysis
+* 64-128 bars arranged radially
+* Height = frequency intensity
+* Color shifts based on dominant frequencies
+
+
+3. Audio Processing (During/After Session)
+* **Feature Extraction:**
+* Frequency distribution (FFT analysis)
+* Amplitude variance (emotional intensity proxy)
+* Peak detection (significant moments)
+* Tonal consistency (loop vs. expansion indicator)
+* Session duration
+
+
+* **Pattern Recognition:**
+* Cosine similarity to previous sessions (if account mode)
+* Recursion detection (repeating frequency patterns)
+* Novelty score (new vs. familiar patterns)
+
+
+4. Session → Mandala Transformation
+* Smooth 2-second animation
+* Ripples crystallize into geometric mandala
+* Mandala parameters derived from audio:
+* **Ring count:** Variance in amplitude (4-12 rings)
+* **Symmetry:** Peak count divided by 6 (6-12 fold symmetry)
+* **Density:** Average amplitude (line thickness/spacing)
+* **Rotation:** Total peaks × 15° (0-360° rotation)
+* **Color hue:** Timestamp modulo 360 (temporal color mapping)
+
+
+
+
+
+
+Tree Ring Growth System
+
+
+Concept: "Concentric Biographical Geometry"
+
+
+Each session adds a new ring to the master mandala, creating a visual document of the user's acoustic/emotional history.
+
+
+Ring Architecture:
+
+
+Center → Outward = Oldest → Newest
+
+
+Session 1 (innermost) ────┐
+Session 2                 │
+Session 3                 ├─ Expanding rings
+Session 4                 │  (chronological order)
+Session 5 (outermost) ────┘
+
+
+Visual Encoding:
+
+
+1. 1. **Ring Position:** Chronological order (oldest = center)
+2. 2. **Ring Thickness:** Session duration or intensity
+3. 3. **Ring Color:** Temporal progression
+* **Option A:** Hue shift (0-360° over lifetime)
+* **Option B:** Season-based (winter=blue, spring=green, summer=yellow, fall=orange)
+* **Option C:** Time of day (morning=warm, night=cool)
+4. 4. **Ring Pattern:** Session's unique geometric signature
+* Each ring contains miniature version of session mandala
+* Petals, arcs, radial lines encode frequency data
+5. 5. **Spiral Growth:** Subtle logarithmic spiral overlay
+* Prevents rings from feeling purely concentric
+* Creates organic growth feel (like nautilus shell)
+
+
+Growth Patterns:
+
+
+Linear Growth (Simple):
+Ring N radius = baseRadius × N
+
+
+Logarithmic Spiral (Organic):
+Ring N radius = baseRadius × (1.2^N)
+Angle offset = N × 15° (creates spiral effect)
+
+
+Fibonacci Growth (Natural):
+Ring N radius = baseRadius × φ^N  (where φ = golden ratio)
+
+
+
+
+
+
+Color Progression System
+
+
+Option 1: Chromatic Time (Recommended)
+* Maps entire color wheel to user's lifetime with the app
+* Session 1 = 0° (red)
+* Session 100 = 360° (red again, but different luminosity)
+* Creates rainbow progression in master mandala
+* **Formula:** `hue = (sessionIndex / totalSessions) × 360`
+
+
+Option 2: Seasonal Palette
+* Detects real-world season from timestamp
+* Winter: Blues/purples (180°-270°)
+* Spring: Greens/yellows (60°-120°)
+* Summer: Yellows/oranges (30°-60°)
+* Fall: Oranges/reds (0°-30°, 330°-360°)
+
+
+Option 3: Temporal Gradient
+* Starts cool (blue), gradually warms to red
+* Represents emotional/psychological "warming up" to the practice
+* Inverse option: Start warm, become cooler (mastery = calm)
+
+
+
+
+
+
+________________
+
+
+Appendix A. Extracted standalone HTML prototype
+The full HTML below was extracted from the embedded code payload in the source document. A runnable copy is also provided separately as mandal_app_recovered_prototype.html.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frequency Field Mandala - Voice Reactive Prototype</title>
+<style> * {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+} body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+background: #0A0A0F;
+color: #E8E8E8;
+overflow: hidden;
+touch-action: none;
+} .app-container {
+width: 100vw;
+height: 100vh;
+display: flex;
+flex-direction: column;
+} /* Header */ .header {
+padding: 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+background: rgba(10, 10, 15, 0.95);
+border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+z-index: 100;
+} .logo {
+font-size: 14px;
+font-weight: 500;
+letter-spacing: 0.5px;
+color: #E8E8E8;
+} .account-toggle {
+display: flex;
+gap: 8px;
+align-items: center;
+font-size: 12px;
+color: #888;
+} .toggle-switch {
+width: 40px;
+height: 22px;
+background: #333;
+border-radius: 11px;
+position: relative;
+cursor: pointer;
+transition: background 0.3s;
+} .toggle-switch.active {
+background: #4A90E2;
+} .toggle-switch::after {
+content: '';
+position: absolute;
+width: 18px;
+height: 18px;
+background: white;
+border-radius: 50%;
+top: 2px;
+left: 2px;
+transition: left 0.3s;
+} .toggle-switch.active::after {
+left: 20px;
+} /* Main Canvas Area */ .canvas-container {
+flex: 1;
+position: relative;
+overflow: hidden;
+} #mandalaCanvas {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+} /* Voice Input Button */ .voice-button-container {
+position: absolute;
+bottom: 80px;
+left: 50%;
+transform: translateX(-50%);
+z-index: 50;
+} .voice-button {
+width: 80px;
+height: 80px;
+border-radius: 50%;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+border: none;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+transition: all 0.3s;
+box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+} .voice-button:hover {
+transform: scale(1.05);
+} .voice-button.active {
+background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+animation: pulse 1.5s ease-in-out infinite;
+} @keyframes pulse {
+0%, 100% {
+box-shadow: 0 4px 20px rgba(245, 87, 108, 0.4);
+} 50% {
+box-shadow: 0 4px 40px rgba(245, 87, 108, 0.8);
+} }
+.voice-icon {
+width: 32px;
+height: 32px;
+fill: white;
+} /* Ripple Rings */ .ripple-ring {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+border: 2px solid rgba(245, 87, 108, 0.6);
+border-radius: 50%;
+pointer-events: none;
+animation: ripple-expand 2s ease-out forwards;
+} @keyframes ripple-expand {
+0% {
+width: 80px;
+height: 80px;
+opacity: 1;
+} 100% {
+width: 400px;
+height: 400px;
+opacity: 0;
+} }
+/* Bottom Controls */ .controls {
+padding: 20px;
+display: flex;
+justify-content: space-around;
+background: rgba(10, 10, 15, 0.95);
+border-top: 1px solid rgba(255, 255, 255, 0.1);
+} .control-button {
+background: none;
+border: none;
+color: #888;
+font-size: 12px;
+cursor: pointer;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 6px;
+transition: color 0.3s;
+} .control-button:hover {
+color: #E8E8E8;
+} .control-button.active {
+color: #4A90E2;
+} .control-icon {
+width: 24px;
+height: 24px;
+} /* Info Panel */ .info-panel {
+position: absolute;
+top: 80px;
+left: 20px;
+background: rgba(20, 20, 30, 0.95);
+padding: 16px;
+border-radius: 12px;
+max-width: 300px;
+font-size: 13px;
+line-height: 1.6;
+color: #CCC;
+border: 1px solid rgba(255, 255, 255, 0.1);
+z-index: 90;
+} .info-panel.hidden {
+display: none;
+} .info-title {
+font-weight: 600;
+color: #E8E8E8;
+margin-bottom: 8px;
+} /* Session Counter */ .session-counter {
+position: absolute;
+top: 80px;
+right: 20px;
+background: rgba(20, 20, 30, 0.95);
+padding: 12px 20px;
+border-radius: 8px;
+font-size: 12px;
+color: #888;
+border: 1px solid rgba(255, 255, 255, 0.1);
+z-index: 90;
+} .session-count {
+font-size: 24px;
+font-weight: 600;
+color: #4A90E2;
+display: block;
+} /* Modal */ .modal-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.8);
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 200;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.3s;
+} .modal-overlay.active {
+opacity: 1;
+pointer-events: all;
+} .modal {
+background: #1A1A24;
+padding: 32px;
+border-radius: 16px;
+max-width: 500px;
+width: 90%;
+text-align: center;
+border: 1px solid rgba(255, 255, 255, 0.1);
+} .modal h2 {
+font-size: 20px;
+margin-bottom: 16px;
+color: #E8E8E8;
+} .modal p {
+font-size: 14px;
+line-height: 1.6;
+color: #AAA;
+margin-bottom: 24px;
+} .modal-buttons {
+display: flex;
+gap: 12px;
+justify-content: center;
+} .modal-button {
+padding: 12px 24px;
+border-radius: 8px;
+border: none;
+font-size: 14px;
+cursor: pointer;
+transition: all 0.3s;
+} .modal-button.primary {
+background: #4A90E2;
+color: white;
+} .modal-button.secondary {
+background: #333;
+color: #E8E8E8;
+} .modal-button:hover {
+transform: translateY(-2px);
+} /* View Toggle */ .view-toggle {
+position: absolute;
+bottom: 180px;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+background: rgba(20, 20, 30, 0.95);
+border-radius: 8px;
+overflow: hidden;
+border: 1px solid rgba(255, 255, 255, 0.1);
+z-index: 50;
+} .view-option {
+padding: 8px 16px;
+font-size: 12px;
+background: none;
+border: none;
+color: #888;
+cursor: pointer;
+transition: all 0.3s;
+} .view-option.active {
+background: #4A90E2;
+color: white;
+} /* Instruction Text */ .instruction {
+position: absolute;
+bottom: 180px;
+left: 50%;
+transform: translateX(-50%);
+font-size: 13px;
+color: #888;
+text-align: center;
+z-index: 40;
+opacity: 1;
+transition: opacity 0.3s;
+} .instruction.hidden {
+opacity: 0;
+} </style>
+</head>
+<body>
+<div class="app-container">
+<!-- Header -->
+<div class="header">
+<div class="logo">FREQUENCY FIELD</div>
+<div class="account-toggle">
+<span>Account Mode</span>
+<div class="toggle-switch" id="accountToggle"></div>
+</div>
+</div>
+<!-- Main Canvas -->
+<div class="canvas-container">
+<canvas id="mandalaCanvas"></canvas>
+<!-- Voice Button -->
+<div class="voice-button-container">
+<button class="voice-button" id="voiceButton">
+<svg class="voice-icon" viewBox="0 0 24 24">
+<path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+<path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 
+6-3.39 6-6.92h-2z"/>
+</svg>
+</button>
+</div>
+<!-- View Toggle -->
+<div class="view-toggle">
+<button class="view-option active" data-view="session">Session View</button>
+<button class="view-option" data-view="master">Master Mandala</button>
+</div>
+<!-- Instruction -->
+<div class="instruction">Hold to speak • Release to process</div>
+<!-- Info Panel -->
+<div class="info-panel" id="infoPanel">
+<div class="info-title">Tree Ring Growth</div>
+<p>Each session creates a new ring in your master mandala. Rings grow outward 
+chronologically, with color shifts marking temporal progression.</p>
+<p>Switch to Master Mandala view to see your complete geometric autobiography.</p>
+</div>
+<!-- Session Counter -->
+<div class="session-counter">
+<span class="session-count" id="sessionCount">0</span>
+<span>Sessions</span>
+</div>
+</div>
+<!-- Bottom Controls -->
+<div class="controls">
+<button class="control-button" id="infoBtn">
+<svg class="control-icon" fill="currentColor" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+<text x="12" y="16" text-anchor="middle" font-size="12" font-weight="bold">i</text>
+</svg>
+<span>Info</span>
+</button>
+<button class="control-button" id="exportBtn">
+<svg class="control-icon" fill="currentColor" viewBox="0 0 24 24">
+<path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2z"/>
+<path d="M13 12.67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z"/>
+</svg>
+<span>Export</span>
+</button>
+<button class="control-button" id="deleteBtn">
+<svg class="control-icon" fill="currentColor" viewBox="0 0 24 24">
+<path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+</svg>
+<span>Delete</span>
+</button>
+</div>
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay">
+<div class="modal">
+<h2 id="modalTitle">Delete All Sessions?</h2>
+<p id="modalMessage">This will permanently remove your entire mandala history. This action 
+cannot be undone.</p>
+<div class="modal-buttons">
+<button class="modal-button secondary" id="modalCancel">Cancel</button>
+<button class="modal-button primary" id="modalConfirm">Confirm</button>
+</div>
+</div>
+</div>
+</div>
+<script> // ============================================ // Core Application State // 
+============================================
+const state = {
+accountMode: false, isRecording: false, currentView: 'session', sessions: [], 
+currentSession: null, audioContext: null, analyser: null, microphone: null, animationFrame: 
+null };
+// ============================================ // Canvas Setup // 
+============================================
+const canvas = document.getElementById('mandalaCanvas');
+
+
+const ctx = canvas.getContext('2d');
+
+
+let centerX, centerY, maxRadius;
+
+
+function resizeCanvas() {
+canvas.width = canvas.offsetWidth;
+canvas.height = canvas.offsetHeight;
+centerX = canvas.width / 2;
+centerY = canvas.height / 2;
+maxRadius = Math.min(canvas.width, canvas.height) * 0.4;
+redraw();
+} window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+// ============================================ // Voice Input & Audio Analysis // 
+============================================
+const voiceButton = document.getElementById('voiceButton');
+
+
+const voiceButtonContainer = document.querySelector('.voice-button-container');
+async
+function startRecording() {
+try {
+
+
+const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+state.analyser = state.audioContext.createAnalyser();
+state.analyser.fftSize = 256;
+state.microphone = state.audioContext.createMediaStreamSource(stream);
+state.microphone.connect(state.analyser);
+state.isRecording = true;
+voiceButton.classList.add('active');
+// Start session state.currentSession = {
+startTime: Date.now(), frequencies: [], amplitudes: [] };
+// Start visualization animateRipples();
+} catch (error) {
+console.error('Microphone access denied:', error);
+alert('Please allow microphone access to use voice input.');
+} }
+
+
+function stopRecording() {
+if (!state.isRecording) return;
+state.isRecording = false;
+voiceButton.classList.remove('active');
+if (state.microphone) {
+state.microphone.disconnect();
+state.microphone.mediaStream.getTracks().forEach(track => track.stop());
+} if (state.audioContext) {
+state.audioContext.close();
+} if (state.animationFrame) {
+cancelAnimationFrame(state.animationFrame);
+} // Process session processSession();
+} // ============================================ // Ripple Visualization // 
+============================================
+let rippleData = [];
+
+
+function animateRipples() {
+if (!state.isRecording) return;
+
+
+const bufferLength = state.analyser.frequencyBinCount;
+
+
+const dataArray = new Uint8Array(bufferLength);
+state.analyser.getByteFrequencyData(dataArray);
+// Calculate average frequency and amplitude
+const average = dataArray.reduce((a, b) => a + b) / bufferLength;
+
+
+const normalizedAmplitude = average / 255;
+// Store data for session state.currentSession.frequencies.push(dataArray);
+state.currentSession.amplitudes.push(normalizedAmplitude);
+// Create ripple ring if (Math.random() > 0.7) {
+createRipple(normalizedAmplitude);
+} // Draw live visualization drawLiveVisualization(dataArray, normalizedAmplitude);
+state.animationFrame = requestAnimationFrame(animateRipples);
+}
+function createRipple(amplitude) {
+
+
+const ripple = document.createElement('div');
+ripple.className = 'ripple-ring';
+ripple.style.borderWidth = Math.max(1, amplitude * 4) + 'px';
+ripple.style.borderColor = `rgba(245, 87, 108, ${amplitude})`;
+voiceButtonContainer.appendChild(ripple);
+setTimeout(() => ripple.remove(), 2000);
+}
+function drawLiveVisualization(frequencyData, amplitude) {
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+// Draw central pulsing circle
+const pulseRadius = 40 + (amplitude * 60);
+
+
+const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, 
+pulseRadius);
+gradient.addColorStop(0, `rgba(245, 87, 108, ${amplitude * 0.8})`);
+gradient.addColorStop(1, 'rgba(245, 87, 108, 0)');
+ctx.fillStyle = gradient;
+ctx.beginPath();
+ctx.arc(centerX, centerY, pulseRadius, 0, Math.PI * 2);
+ctx.fill();
+// Draw frequency bars in circular pattern
+const bars = 64;
+
+
+const angleStep = (Math.PI * 2) / bars;
+for (
+let i = 0;
+i < bars;
+i++) {
+
+
+const angle = i * angleStep;
+
+
+const freqIndex = Math.floor(i * frequencyData.length / bars);
+
+
+const barHeight = (frequencyData[freqIndex] / 255) * maxRadius * 0.6;
+
+
+const startRadius = maxRadius * 0.3;
+
+
+const x1 = centerX + Math.cos(angle) * startRadius;
+
+
+const y1 = centerY + Math.sin(angle) * startRadius;
+
+
+const x2 = centerX + Math.cos(angle) * (startRadius + barHeight);
+
+
+const y2 = centerY + Math.sin(angle) * (startRadius + barHeight);
+
+
+const hue = (i / bars) * 360;
+ctx.strokeStyle = `hsla(${hue}, 80%, 60%, ${amplitude})`;
+ctx.lineWidth = 2;
+ctx.beginPath();
+ctx.moveTo(x1, y1);
+ctx.lineTo(x2, y2);
+ctx.stroke();
+} }
+// ============================================ // Session Processing // 
+============================================
+function processSession() {
+if (!state.currentSession) return;
+state.currentSession.endTime = Date.now();
+state.currentSession.duration = state.currentSession.endTime - 
+state.currentSession.startTime;
+// Generate mandala from session data
+const mandala = generateMandalaFromSession(state.currentSession);
+state.currentSession.mandala = mandala;
+// Add to sessions if account mode if (state.accountMode) {
+state.sessions.push(state.currentSession);
+updateSessionCounter();
+saveToLocalStorage();
+} // Animate transition to mandala view animateSessionToMandala(mandala);
+}
+function generateMandalaFromSession(session) {
+// Convert frequency/amplitude data into geometric parameters
+const avgAmplitudes = session.amplitudes.reduce((a, b) => a + b) / 
+session.amplitudes.length;
+
+
+const variance = calculateVariance(session.amplitudes);
+
+
+const peakCount = countPeaks(session.amplitudes);
+return {
+rings: Math.floor(4 + variance * 8), density: avgAmplitudes, rotation: peakCount * 15, 
+symmetry: 6 + Math.floor(Math.random() * 6), color: {
+hue: (Date.now() % 360), saturation: 60 + variance * 40, lightness: 50 }, timestamp: 
+session.startTime };
+}
+function calculateVariance(arr) {
+
+
+const mean = arr.reduce((a, b) => a + b) / arr.length;
+
+
+const squareDiffs = arr.map(value => Math.pow(value - mean, 2));
+return Math.sqrt(squareDiffs.reduce((a, b) => a + b) / arr.length);
+}
+function countPeaks(arr) {
+
+
+let peaks = 0;
+for (
+let i = 1;
+i < arr.length - 1;
+i++) {
+if (arr[i] > arr[i-1] && arr[i] > arr[i+1] && arr[i] > 0.5) {
+peaks++;
+} }
+return peaks;
+}
+function animateSessionToMandala(mandala) {
+
+
+let progress = 0;
+
+
+const duration = 2000;
+
+
+const startTime = Date.now();
+
+
+function animate() {
+
+
+const elapsed = Date.now() - startTime;
+progress = Math.min(elapsed / duration, 1);
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+drawMandala(mandala, progress);
+if (progress < 1) {
+requestAnimationFrame(animate);
+} }
+animate();
+} // ============================================ // Mandala Drawing // 
+============================================
+function drawMandala(mandala, progress = 1) {
+ctx.save();
+ctx.translate(centerX, centerY);
+ctx.rotate((mandala.rotation * progress * Math.PI) / 180);
+
+
+const {
+rings, density, symmetry, color }
+= mandala;
+for (
+let ring = 0;
+ring < rings;
+ring++) {
+
+
+const ringProgress = Math.max(0, (progress * rings - ring) / rings);
+if (ringProgress <= 0) continue;
+
+
+const radius = (maxRadius * (ring + 1) / rings) * ringProgress;
+
+
+const segments = symmetry * (ring + 1);
+
+
+const angleStep = (Math.PI * 2) / segments;
+ctx.strokeStyle = `hsla(${color.hue}, ${color.saturation}%, ${color.lightness}%, ${density *
+ ringProgress * 0.8})`;
+ctx.lineWidth = 1 + density * 2;
+// Draw geometric patterns for (
+let i = 0;
+i < segments;
+i++) {
+
+
+const angle = i * angleStep;
+
+
+const nextAngle = (i + 1) * angleStep;
+// Petals ctx.beginPath();
+ctx.moveTo(Math.cos(angle) * radius, Math.sin(angle) * radius);
+
+
+const controlRadius = radius * (1 + density * 0.3);
+
+
+const controlAngle = (angle + nextAngle) / 2;
+ctx.quadraticCurveTo( Math.cos(controlAngle) * controlRadius, Math.sin(controlAngle) * 
+controlRadius, Math.cos(nextAngle) * radius, Math.sin(nextAngle) * radius );
+ctx.stroke();
+// Connecting lines to center if (ring % 2 === 0) {
+ctx.beginPath();
+ctx.moveTo(0, 0);
+ctx.lineTo(Math.cos(angle) * radius, Math.sin(angle) * radius);
+ctx.stroke();
+} }
+// Ring circles ctx.beginPath();
+ctx.arc(0, 0, radius, 0, Math.PI * 2);
+ctx.stroke();
+} ctx.restore();
+} // ============================================ // Master Mandala (Tree Ring View) // 
+============================================
+function drawMasterMandala() {
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+if (state.sessions.length === 0) {
+drawEmptyState();
+return;
+} // Draw sessions as concentric tree rings
+const ringThickness = maxRadius / Math.max(state.sessions.length, 10);
+state.sessions.forEach((session, index) => {
+
+
+const innerRadius = index * ringThickness;
+
+
+const outerRadius = (index + 1) * ringThickness;
+
+
+const mandala = session.mandala;
+ctx.save();
+ctx.translate(centerX, centerY);
+// Draw ring with session's geometric signature
+const segments = mandala.symmetry * 12;
+
+
+const angleStep = (Math.PI * 2) / segments;
+// Hue shifts over time (color progression)
+const hueShift = (index / state.sessions.length) * 360;
+ctx.strokeStyle = `hsla(${hueShift}, 70%, 55%, 0.8)`;
+ctx.lineWidth = 1.5;
+// Spiral growth pattern
+const spiralTightness = 0.1;
+for (
+let i = 0;
+i < segments;
+i++) {
+
+
+const angle = i * angleStep;
+
+
+const spiralRadius = innerRadius + (outerRadius - innerRadius) * (i / segments) * 
+spiralTightness;
+
+
+const r1 = innerRadius + spiralRadius;
+
+
+const r2 = outerRadius;
+// Geometric detail based on session density if (mandala.density > 0.3 && i % 3 === 0) {
+ctx.beginPath();
+ctx.moveTo(Math.cos(angle) * r1, Math.sin(angle) * r1);
+ctx.lineTo(Math.cos(angle) * r2, Math.sin(angle) * r2);
+ctx.stroke();
+} }
+// Ring boundaries ctx.beginPath();
+ctx.arc(0, 0, innerRadius, 0, Math.PI * 2);
+ctx.stroke();
+ctx.beginPath();
+ctx.arc(0, 0, outerRadius, 0, Math.PI * 2);
+ctx.stroke();
+// Add session mandala pattern within ring ctx.globalAlpha = 0.4;
+ctx.rotate((mandala.rotation * Math.PI) / 180);
+for (
+let seg = 0;
+seg < mandala.symmetry;
+seg++) {
+
+
+const angle = (seg / mandala.symmetry) * Math.PI * 2;
+
+
+const midRadius = (innerRadius + outerRadius) / 2;
+ctx.beginPath();
+ctx.arc( Math.cos(angle) * midRadius, Math.sin(angle) * midRadius, (outerRadius - 
+innerRadius) * 0.2, 0, Math.PI * 2 );
+ctx.stroke();
+} ctx.restore();
+});
+// Center marker ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+ctx.beginPath();
+ctx.arc(centerX, centerY, 4, 0, Math.PI * 2);
+ctx.fill();
+}
+function drawEmptyState() {
+ctx.fillStyle = '#666';
+ctx.font = '14px -apple-system, sans-serif';
+ctx.textAlign = 'center';
+ctx.fillText('No sessions yet', centerX, centerY - 10);
+ctx.fillStyle = '#888';
+ctx.font = '12px -apple-system, sans-serif';
+ctx.fillText('Enable Account Mode and record a session', centerX, centerY + 10);
+} // ============================================ // View Management // 
+============================================
+function redraw() {
+if (state.currentView === 'master') {
+drawMasterMandala();
+} else if (state.currentSession && state.currentSession.mandala) {
+drawMandala(state.currentSession.mandala);
+} else {
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+} }
+document.querySelectorAll('.view-option').forEach(btn => {
+btn.addEventListener('click', () => {
+document.querySelectorAll('.view-option').forEach(b => b.classList.remove('active'));
+btn.classList.add('active');
+state.currentView = btn.dataset.view;
+redraw();
+});
+});
+// ============================================ // Controls & UI // 
+============================================ // Voice button 
+voiceButton.addEventListener('mousedown', startRecording);
+voiceButton.addEventListener('mouseup', stopRecording);
+voiceButton.addEventListener('touchstart', (e) => {
+e.preventDefault();
+startRecording();
+});
+voiceButton.addEventListener('touchend', (e) => {
+e.preventDefault();
+stopRecording();
+});
+// Account toggle
+const accountToggle = document.getElementById('accountToggle');
+accountToggle.addEventListener('click', () => {
+state.accountMode = !state.accountMode;
+accountToggle.classList.toggle('active');
+if (state.accountMode) {
+loadFromLocalStorage();
+} });
+// Info button
+const infoBtn = document.getElementById('infoBtn');
+
+
+const infoPanel = document.getElementById('infoPanel');
+infoBtn.addEventListener('click', () => {
+infoPanel.classList.toggle('hidden');
+infoBtn.classList.toggle('active');
+});
+// Export button
+const exportBtn = document.getElementById('exportBtn');
+exportBtn.addEventListener('click', () => {
+
+
+const view = state.currentView === 'master' ? 'master-mandala' : 'session-mandala';
+
+
+const dataURL = canvas.toDataURL('image/png');
+
+
+const link = document.createElement('a');
+link.download = `frequency-field-${view}-${Date.now()}.png`;
+link.href = dataURL;
+link.click();
+showModal('Export Complete', 'Your mandala has been saved as an image.');
+});
+// Delete button
+const deleteBtn = document.getElementById('deleteBtn');
